@@ -15,8 +15,6 @@ import lombok.experimental.SuperBuilder;
 public class UnidadMedida extends Base{
     private String denominacion;
 
-    // relaciones
-    private Articulo articulo;
 
     @Override
     public String toString() {

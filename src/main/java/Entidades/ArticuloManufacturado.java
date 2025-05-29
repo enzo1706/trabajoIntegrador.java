@@ -1,10 +1,10 @@
 package Entidades;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -17,6 +17,14 @@ public class ArticuloManufacturado extends Articulo{
     private String descripcion;
     private Integer tiempoEstimadosMinutos;
     private String preparacion;
+
+     // relaciones
+    @Builder.Default
+    private Set<ArticuloManufacturadoDetalle> detalles = new HashSet<>();
+
+    public void agregarDetalle(ArticuloManufacturadoDetalle detalle){
+        detalles.add(detalle);
+    }
 
     @Override
     public String toString() {

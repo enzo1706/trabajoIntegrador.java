@@ -17,7 +17,6 @@ public class ArticuloManufacturadoDetalle extends Articulo{
 
     // relaciones
     private ArticuloInsumo articuloInsumo;
-    private ArticuloManufacturado articuloManufacturado;
 
     @Override
     public String toString() {

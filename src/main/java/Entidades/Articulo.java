@@ -16,7 +16,7 @@ public abstract class Articulo extends Base{
     protected String denominacion;
     protected double precioVenta;
 
-    // relaciones
-    private Categoria categoria;
+    //relaciones
+    private UnidadMedida unidadMedida;
 
 }

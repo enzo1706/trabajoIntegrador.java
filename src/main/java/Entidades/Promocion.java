@@ -28,16 +28,11 @@ public class Promocion extends Base {
     // relaciones
     @Builder.Default
     private Set<Articulo> articulos = new HashSet<>();
-    @Builder.Default
-    private Set<Sucursal> sucursales = new HashSet<>();
 
     public void agregarArticulos(Articulo articulo){
         articulos.add(articulo);
     }
 
-    public void agregarSucursal(Sucursal sucursal){
-        sucursales.add(sucursal);
-    }
 
     @Override
     public String toString() {

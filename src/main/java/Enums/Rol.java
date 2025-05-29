@@ -1,5 +1,5 @@
 package Enums;
 
 public enum Rol {
-    admin, empleado, cliente
+    ADMIN, EMPLEADO, CLIENTE
 }

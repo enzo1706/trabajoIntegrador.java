@@ -3,8 +3,6 @@ package Entidades;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
-import java.util.HashSet;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -18,15 +16,8 @@ public class Domicilio extends Base {
     private Integer cp;
 
     // relaciones
-
-    private Sucursal sucursal;
-    @Builder.Default
-    private Set<Pedido> pedidos = new HashSet<>();
     private Localidad localidad;
 
-    public void agregarPedidos(Pedido pedido){
-        pedidos.add(pedido);
-    }
 
     @Override
     public String toString() {
@@ -34,7 +25,7 @@ public class Domicilio extends Base {
                 "calle='" + calle + '\'' +
                 ", numero=" + numero +
                 ", cp=" + cp +
-                ", sucursal=" + getClass().getName() +
+                ", localidad=" + getLocalidad().getNombre() +
                 '}';
     }
 }

@@ -16,15 +16,11 @@ public class Usuario extends Base{
     private String auth0Id;
     private String username;
 
-    // relaciones
-    private Cliente cliente;
 
     @Override
     public String toString() {
         return "Usuario{" +
                 "auth0Id='" + auth0Id + '\'' +
-                ", username='" + username + '\'' +
-                ", cliente=" + getClass().getName() +
-                '}';
+                ", username='" + username;
     }
 }

@@ -16,19 +16,14 @@ public class Localidad extends Base{
     private String nombre;
 
     // relaciones
-    @Builder.Default
-    private Set<Domicilio> domicilios = new HashSet<>();
     private Provincia provincia;
 
-    public void agregarDomicilio(Domicilio domicilio){
-        domicilios.add(domicilio);
-    }
 
     @Override
     public String toString() {
         return "Localidad{" +
                 "nombre='" + nombre + '\'' +
-                ", provincia=" + getClass().getName() +
+                ", provincia=" + getNombre() +
                 '}';
     }
 }

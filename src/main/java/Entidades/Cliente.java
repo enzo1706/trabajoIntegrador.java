@@ -23,6 +23,9 @@ public class Cliente extends Base{
     // relaciones
     @Builder.Default
     private Set<Pedido> pedidos = new HashSet<>();
+    private Imagen imagen;
+    private Domicilio domicilio;
+    private Usuario usuario;
 
     public void agregarPedidos(Pedido pedido){
         pedidos.add(pedido);

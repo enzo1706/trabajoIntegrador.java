@@ -1,5 +1,5 @@
 package Enums;
 
 public enum TipoPromocion {
-    HAPPYHOUR, promocion1
+    HAPPYHOUR, PROMOCION1
 }

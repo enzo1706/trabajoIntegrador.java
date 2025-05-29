@@ -15,9 +15,6 @@ import lombok.experimental.SuperBuilder;
 public class Imagen extends Base {
     private String denominacion;
 
-    // relaciones
-    private Promocion promocion;
-    private Articulo articulo;
 
     @Override
     public String toString() {

@@ -16,12 +16,10 @@ public class Pais extends Base {
 
     private String nombre;
 
-    // relaciones
-
-    @Builder.Default
-    private Set<Provincia> provincias = new HashSet<>();
-
-    public void agregarProvincia(Provincia provincia){
-        provincias.add(provincia);
+    @Override
+    public String toString() {
+        return "Pais{" +
+                "nombre='" + nombre + '\'' +
+                '}';
     }
 }

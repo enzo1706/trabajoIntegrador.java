@@ -16,10 +16,13 @@ public class Provincia extends Base {
     private String nombre;
 
     // relaciones
-    @Builder.Default
-    private Set<Localidad> localidades = new HashSet<>();
+    private Pais pais;
 
-    public void agregarLocalidades(Localidad localidad){
-        localidades.add(localidad);
+    @Override
+    public String toString() {
+        return "Provincia{" +
+                "nombre='" + nombre + '\'' +
+                ", pais=" + pais.getNombre() +
+                '}';
     }
 }

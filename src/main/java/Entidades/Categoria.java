@@ -16,12 +16,8 @@ public class Categoria extends Base{
     private String denominacion;
 
     // relaciones
-    @Builder.Default
-    private Set<Sucursal> sucursales = new HashSet<>();
+    private Categoria categoria;
 
-    public void agregarCategoria(Sucursal sucursal){
-        sucursales.add(sucursal);
-    }
 
     @Override
     public String toString() {

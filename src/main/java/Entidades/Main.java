@@ -26,7 +26,7 @@ public class Main {
             Sucursal sucursal1 = Sucursal.builder()
                     .nombre("Sucursal Centro ")
                     .horarioApertura(LocalTime.of(19, 0))
-                    .horarioCierre(LocalTime.of(0, 0))  // corregido
+                    .horarioCierre(LocalTime.of(0, 0))
                     .build();
 
             System.out.println(sucursal1);
@@ -35,7 +35,7 @@ public class Main {
             Sucursal sucursal2 = Sucursal.builder()
                     .nombre("Sucursal Guaymallen ")
                     .horarioApertura(LocalTime.of(19, 0))
-                    .horarioCierre(LocalTime.of(0, 0))  // corregido
+                    .horarioCierre(LocalTime.of(0, 0))
                     .build();
 
             System.out.println(sucursal2);
@@ -80,11 +80,7 @@ public class Main {
                     .nombre("Ciudad de Mendoza ")
                     .build();
 
-            pais.agregarProvincia(prov);
-            prov.agregarLocalidades(localidad1);
-            prov.agregarLocalidades(localidad2);
-            localidad1.agregarDomicilio(domicilio1);
-            localidad2.agregarDomicilio(domicilio2);
+
 
             // creamos clientes con sus respectivos usuarios
             Cliente cli_1 = Cliente.builder()
@@ -93,6 +89,7 @@ public class Main {
                     .telefono("2615489754")
                     .email("tomas@gmail.com ")
                     .fechaNacimiento(LocalDate.of(2006, 3, 5))
+                    .domicilio(domicilio1)
                     .build();
 
             System.out.println(cli_1);
@@ -104,6 +101,7 @@ public class Main {
                     .telefono("2616536002")
                     .email("gustavo@gmail.com ")
                     .fechaNacimiento(LocalDate.of(2006, 4, 17))
+                    .domicilio(domicilio2)
                     .build();
 
             System.out.println(cli_2);
@@ -119,30 +117,31 @@ public class Main {
                     .username("gustavo0009 ")
                     .build();
 
+
             // creamos pedidos uno para cada cliente
             Pedido ped1 = Pedido.builder()
                     .id(100L)
                     .horaEstimadaFinalizacion(LocalTime.of(14, 0))
                     .total(13000)
                     .totalCosto(10000)
-                    .estado(Estado.entregado)
-                    .tipoEnvio(TipoEnvio.delivery)
-                    .formaPago(FormaPago.mercadoPago)
+                    .estado(Estado.ENTRGADO)
+                    .tipoEnvio(TipoEnvio.DELIVERY)
+                    .formaPago(FormaPago.MERCADOPAGO)
                     .fechaPedido(LocalDate.of(2025, 5, 20))
-                    .detallePedidos(new HashSet<>())
                     .build();
 
             System.out.println("-----PEDIDO 1-----");
             System.out.println(ped1);
             System.out.println("-----");
 
-            domicilio1.agregarPedidos(ped1);
+
             sucursal1.agregarPedidos(ped1);
 
             DetallePedido detalle1 = DetallePedido.builder()
                     .id(300L)
                     .cantidad(2)
                     .subtotal(3000)
+                    .pedido(ped1)
                     .build();
 
             ped1.agregarDetalle(detalle1);
@@ -152,24 +151,24 @@ public class Main {
                     .horaEstimadaFinalizacion(LocalTime.of(22, 0))
                     .total(20000)
                     .totalCosto(13000)
-                    .estado(Estado.pendiente)
-                    .tipoEnvio(TipoEnvio.TakeAway)
-                    .formaPago(FormaPago.mercadoPago)
+                    .estado(Estado.PENDIENTE)
+                    .tipoEnvio(TipoEnvio.TAKEAWAY)
+                    .formaPago(FormaPago.MERCADOPAGO)
                     .fechaPedido(LocalDate.of(2025, 5, 18))
-                    .detallePedidos(new HashSet<>())
                     .build();
 
             System.out.println("-----PEDIDO 2-----");
             System.out.println(ped2);
             System.out.println("-----");
 
-            domicilio2.agregarPedidos(ped2);
+
             sucursal2.agregarPedidos(ped2);
 
             DetallePedido detalle2 = DetallePedido.builder()
                     .id(301L)
                     .cantidad(1)
                     .subtotal(7000)
+                    .pedido(ped2)
                     .build();
 
             ped2.agregarDetalle(detalle2);
@@ -180,7 +179,7 @@ public class Main {
             Factura fac1 = Factura.builder()
                     .id(400L)
                     .fechaFacturacion(LocalDate.now())
-                    .formaPago(FormaPago.mercadoPago)
+                    .formaPago(FormaPago.MERCADOPAGO)
                     .mpMerchantOrderId(12345)
                     .mpPaymentId(898546)
                     .mpPreferenceId("pref123 ")
@@ -189,10 +188,13 @@ public class Main {
                     .pedido(ped1)
                     .build();
 
+            System.out.println(fac1);
+            System.out.println("-----");
+
             Factura fac2 = Factura.builder()
                     .id(401L)
                     .fechaFacturacion(LocalDate.now())
-                    .formaPago(FormaPago.mercadoPago)
+                    .formaPago(FormaPago.MERCADOPAGO)
                     .mpMerchantOrderId(18745)
                     .mpPaymentId(898123)
                     .mpPreferenceId("pref456 ")
@@ -201,23 +203,12 @@ public class Main {
                     .pedido(ped2)
                     .build();
 
-            // cargamos una promocion
-            Promocion promo = Promocion.builder()
-                    .id(500L)
-                    .denominacion("Combo 2x1 por el dia de la hamburguesa ")
-                    .FechaDesde(LocalDate.of(2025, 5, 20))
-                    .FechaHasta(LocalDate.of(2025, 5, 27))
-                    .HoraDesde(LocalTime.of(19, 0))
-                    .HoraHasta(LocalTime.of(23, 0))
-                    .descripcionDescuento("2x1 en hamburguesas dobles a eleccion")
-                    .precioPromocional(10000)
-                    .tipoPromocion(TipoPromocion.promocion1)
-                    .build();
+            System.out.println(fac2);
+            System.out.println("-----");
 
-            System.out.println(promo);
 
-            promo.agregarSucursal(sucursal1);
-            promo.agregarSucursal(sucursal2);
+
+
 
             // creamos articulos
             ArticuloInsumo carne = ArticuloInsumo.builder()
@@ -240,9 +231,10 @@ public class Main {
                     .esParaElaborar(true)
                     .build();
 
+
             ArticuloManufacturado hambManu = ArticuloManufacturado.builder()
                     .id(12L)
-                    .denominacion("Hmbuerguesa clasica ")
+                    .denominacion("Hambuerguesa clasica ")
                     .precioVenta(12000)
                     .descripcion(" carne, pan, cheddar, tomate, lechuga y cebolla ")
                     .tiempoEstimadosMinutos(10)
@@ -254,6 +246,26 @@ public class Main {
                     .cantidad(1)
                     .build();
 
+            // cargamos una promocion
+            Promocion promo = Promocion.builder()
+                    .id(500L)
+                    .denominacion("Combo 2x1 por el dia de la hamburguesa ")
+                    .FechaDesde(LocalDate.of(2025, 5, 20))
+                    .FechaHasta(LocalDate.of(2025, 5, 27))
+                    .HoraDesde(LocalTime.of(19, 0))
+                    .HoraHasta(LocalTime.of(23, 0))
+                    .descripcionDescuento("2x1 en hamburguesas dobles a eleccion pagando con efectivo")
+                    .precioPromocional(10000)
+                    .tipoPromocion(TipoPromocion.PROMOCION1)
+                    .build();
+
+            System.out.println(promo);
+
+            sucursal1.agregarPromociones(promo);
+            sucursal2.agregarPromociones(promo);
+
+            hambManu.agregarDetalle(detalleHamb);
+
             // creamos imagen, categoria e unidad de medida
             Imagen img = Imagen.builder()
                     .id(14L)
@@ -264,6 +276,8 @@ public class Main {
                     .id(15L)
                     .denominacion("Combos ")
                     .build();
+
+            sucursal1.agregarCategorias(cat);
 
             UnidadMedida unidadMedida = UnidadMedida.builder()
                     .id(16L)

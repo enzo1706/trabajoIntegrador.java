@@ -4,14 +4,27 @@ import Enums.Estado;
 import Enums.FormaPago;
 import Enums.TipoEnvio;
 import Enums.TipoPromocion;
+import config.Conexion;
+import dao.ClienteDAO;
 
+import java.sql.Connection;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.HashSet;
+import java.util.List;
+
 
 public class Main {
     public static void main(String[] args) {
         try {
+            try (Connection conn = Conexion.conectar()) {
+                System.out.println(" Conexión exitosa a la base de datos.");
+            } catch (Exception e) {
+                System.out.println(" Error al conectar a la base de datos:");
+                e.printStackTrace();
+                return;
+            }
+
+
             // creamos una Empresa
             Empresa empresa = Empresa.builder()
                     .nombre("Dr gula")
@@ -44,24 +57,6 @@ public class Main {
             empresa.agregarSucursal(sucursal1);
             empresa.agregarSucursal(sucursal2);
 
-            // creamos los 2 domicilios
-            Domicilio domicilio1 = Domicilio.builder()
-                    .calle("Av. San Martin 742 Cuidad ")
-                    .numero(742)
-                    .cp(5500)
-                    .build();
-
-            System.out.println(domicilio1);
-            System.out.println("-----");
-
-            Domicilio domicilio2 = Domicilio.builder()
-                    .calle("Bandera de los Andes 386, Guaymallen ")
-                    .numero(386)
-                    .cp(5521)
-                    .build();
-
-            System.out.println(domicilio2);
-            System.out.println("-----");
 
             // creamos pais, provincia y localidad
             Pais pais = Pais.builder()
@@ -78,6 +73,24 @@ public class Main {
 
             Localidad localidad2 = Localidad.builder()
                     .nombre("Ciudad de Mendoza ")
+                    .build();
+
+            // creamos los 2 domicilios
+            Domicilio domicilio1 = Domicilio.builder()
+                    .calle("Av. San Martin 742 Cuidad ")
+                    .numero(742)
+                    .cp(5500)
+                    .localidad(localidad2)
+                    .build();
+
+            System.out.println(domicilio1);
+            System.out.println("-----");
+
+            Domicilio domicilio2 = Domicilio.builder()
+                    .calle("Bandera de los Andes 386, Guaymallen ")
+                    .numero(386)
+                    .cp(5521)
+                    .localidad(localidad1)
                     .build();
 
 
@@ -105,6 +118,25 @@ public class Main {
                     .build();
 
             System.out.println(cli_2);
+            System.out.println("-----");
+
+            ClienteDAO clienteDAO = new ClienteDAO();
+
+            // Inserta los dos clientes
+            clienteDAO.insertarCliente(cli_1);
+            clienteDAO.insertarCliente(cli_2);
+            System.out.println("-----");
+
+            // obtener todos los clientes de la base
+            System.out.println(" Clientes en la base:");
+            List<Cliente> clientes = clienteDAO.obtenerTodos();
+            clientes.forEach(System.out::println);
+            System.out.println("-----");
+
+            // buscar cliente por email
+            System.out.println(" Buscando cliente por email:");
+            Cliente encontrado = clienteDAO.buscarPorEmail("gustavo@gmail.com");
+            System.out.println(encontrado != null ? encontrado : "No se encontró el cliente.");
             System.out.println("-----");
 
             Usuario usu1 = Usuario.builder()
@@ -287,5 +319,6 @@ public class Main {
         } catch (Exception e) {
             e.printStackTrace(); // Mostrará en consola si algo falla en tiempo de ejecución
         }
+
     }
 }

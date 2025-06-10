@@ -1,5 +1,4 @@
-package Entidades;
-
+import Entidades.*;
 import Enums.Estado;
 import Enums.FormaPago;
 import Enums.TipoEnvio;

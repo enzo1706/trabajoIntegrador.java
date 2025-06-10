@@ -90,4 +90,46 @@ public class ClienteDAO {
 
         return cliente;
     }
+
+    // actualizar un cliente existente
+    public boolean actualizarCliente(Cliente cliente) {
+        String sql = "UPDATE cliente SET nombre = ?, apellido = ?, telefono = ?, email = ?, fecha_nacimiento = ? WHERE id = ?";
+
+        try (Connection conn = Conexion.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, cliente.getNombre());
+            stmt.setString(2, cliente.getApellido());
+            stmt.setString(3, cliente.getTelefono());
+            stmt.setString(4, cliente.getEmail());
+            stmt.setDate(5, Date.valueOf(cliente.getFechaNacimiento()));
+            stmt.setLong(6, cliente.getId());
+
+            int filasAfectadas = stmt.executeUpdate();
+            return filasAfectadas > 0;
+
+        } catch (SQLException e) {
+            System.out.println(" Error al actualizar cliente:");
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    // eliminar un cliente por ID
+    public boolean eliminarClientePorId(long id) {
+        String sql = "DELETE FROM cliente WHERE id = ?";
+
+        try (Connection conn = Conexion.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setLong(1, id);
+            int filasAfectadas = stmt.executeUpdate();
+            return filasAfectadas > 0;
+
+        } catch (SQLException e) {
+            System.out.println(" Error al eliminar cliente:");
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

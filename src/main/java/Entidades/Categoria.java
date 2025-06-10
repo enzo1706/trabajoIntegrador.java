@@ -14,6 +14,7 @@ import java.util.Set;
 
 public class Categoria extends Base{
     private String denominacion;
+    private String subctegoria;
 
     // relaciones
     private Categoria categoria;

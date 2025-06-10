@@ -307,6 +307,7 @@ public class Main {
             Categoria cat = Categoria.builder()
                     .id(15L)
                     .denominacion("Combos ")
+                    .subctegoria("Hamburguesas")
                     .build();
 
             sucursal1.agregarCategorias(cat);
